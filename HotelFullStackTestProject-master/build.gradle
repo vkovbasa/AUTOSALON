@@ -1,0 +1,64 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.0.4'
+    id 'io.spring.dependency-management' version '1.1.0'
+}
+
+group = 'com.example'
+version = '1'
+sourceCompatibility = '17'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+ext {
+    springVersion = '3.0.4'
+}
+
+dependencies {
+    implementation 'mysql:mysql-connector-java:8.0.28'
+
+    // kafka
+    implementation "org.springframework.kafka:spring-kafka:$springVersion"
+    implementation "org.springframework.boot:spring-boot-starter-webflux:$springVersion"
+
+    // flyway
+    implementation 'org.flywaydb:flyway-core:10.11.1'
+    implementation 'org.flywaydb:flyway-mysql:8.4.4'
+
+    // open api
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+
+    // validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+    // lombok
+    annotationProcessor 'org.projectlombok:lombok'
+    compileOnly 'org.projectlombok:lombok'
+
+    // mapper
+    implementation 'org.modelmapper:modelmapper:2.4.4'
+
+    implementation 'org.mapstruct:mapstruct:1.4.2.Final'
+    annotationProcessor 'org.mapstruct:mapstruct-processor:1.4.2.Final'
+
+
+    testImplementation "org.springframework.kafka:spring-kafka-test:$springVersion"
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+//    runtimeOnly 'org.postgresql:postgresql'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation "org.testcontainers:kafka:1.17.6"
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
